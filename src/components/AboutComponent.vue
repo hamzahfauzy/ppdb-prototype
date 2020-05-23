@@ -1,5 +1,5 @@
 <template>
-	<div :style="{display:active=='about'?'block':'none'}">
+	<div class="container-fluid">
 		<h2>About</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -13,8 +13,24 @@
 
 <script>
 	export default {
-		props: {
-			active:''
+		async created() {
+			await this.gapiLogin()
+			// await this.getSpreadsheetId()
+		},
+		methods:{
+			async gapiLogin(){
+				var vm = this
+				vm.$gapi.isSignedIn()
+				.then(result => {
+					if(!result)
+						vm.$router.push('/login')
+					else
+						vm.$router.push('/')
+				})
+				.catch(err => {
+					vm.$router.push('/login')
+				})
+			},
 		}
 	}
 </script>

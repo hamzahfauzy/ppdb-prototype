@@ -1,32 +1,39 @@
 <template>
-	<div :style="{display:active=='index'?'block':'none'}">
-		<h2>Selamat Datang</h2>
-		<label>Data Peserta</label>
-		<ul>
-			<li v-for="(data,index) in listData" v-if="data[2] != 0">{{data[0]}} ({{data[1]}}) - <a :href="'#delete-'+index" @click="deleteRow(data, index)">Delete</a></li>
-		</ul>
+	<div>
+		<link rel="stylesheet" type="text/css" href="css/home.css">
+		<div class="top-header">
+			<div class="">
+				<div class="top-flex">
+					<div class="top-brand">
+						<a href="#">
+							<img src="assets/logo.png" width="35px">
+							<span>Penerimaan Peserta Didik Baru</span>
+						</a>
+					</div>
+					<div class="top-account">
+						<a href="#">
+							<span>Administrator</span>
+							<img src="assets/logo.png" width="35px">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left-sidebar">
+				<Nav></Nav>
+			</div>
+			<div class="web-content">
+				<router-view name="auth" />
+			</div>
+		</div>
 	</div>
 </template>
-
-<script>
-	export default {
-		props: {
-			active:'',
-			listData:{}
-		},
-		created(){
-
-		},
-		data(){
-			return {
-				
-			}
-		},
-		methods: {
-			deleteRow(row,index){
-				var data = {row:row,index:index+1}
-				this.$emit('deleteRow',data)
-			}
-		}
-	}
+<script type="text/javascript">
+import Nav from './layouts/Nav.vue'
+export default {
+	components: {
+		'Nav':Nav
+	},
+}
 </script>
